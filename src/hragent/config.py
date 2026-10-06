@@ -30,7 +30,7 @@ class Settings:
     )
     agent_model: str = field(default_factory=lambda: _env("AGENT_MODEL", "openai/gpt-oss-20b"))
     judge_model: str = field(default_factory=lambda: _env("JUDGE_MODEL", "openai/gpt-oss-120b"))
-    prompt_version: str = field(default_factory=lambda: _env("PROMPT_VERSION", "v2"))
+    prompt_version: str = field(default_factory=lambda: _env("PROMPT_VERSION", "v3"))
     # "groq" uses the real API; "stub" means tests inject a scripted fake model.
     llm_provider: str = field(default_factory=lambda: _env("LLM_PROVIDER", "groq"))
     max_steps: int = field(default_factory=lambda: int(_env("MAX_AGENT_STEPS", "8")))

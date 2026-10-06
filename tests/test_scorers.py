@@ -13,3 +13,9 @@ def test_args_normalised():
     assert args_match({"category": ["leave", "other"]}, {"category": "Other"})
     assert not args_match({"start_date": "2026-10-12"}, {"start_date": "2026-10-13"})
     assert not args_match({"month": "2026-09"}, {})
+
+
+def test_lookalike_characters_are_folded():
+    assert contains("Request ID: LR‑0001", "LR-0001")   # non-breaking hyphen
+    assert contains("Ticket HR‐4101", "HR-4101")
+    assert contains("₹1,11,800", "111800")

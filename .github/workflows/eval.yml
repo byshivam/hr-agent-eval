@@ -9,8 +9,8 @@ on:
   workflow_dispatch:
     inputs:
       prompt_version:
-        description: "Prompt version to evaluate (v2 or v1_naive)"
-        default: "v2"
+        description: "Prompt version to evaluate (v3, v2 or v1_naive)"
+        default: "v3"
 
 jobs:
   unit-tests:
@@ -37,7 +37,7 @@ jobs:
     env:
       GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
       LLM_PROVIDER: groq
-      PROMPT_VERSION: ${{ github.event.inputs.prompt_version || 'v2' }}
+      PROMPT_VERSION: ${{ github.event.inputs.prompt_version || 'v3' }}
     steps:
       - uses: actions/checkout@v4
         with:

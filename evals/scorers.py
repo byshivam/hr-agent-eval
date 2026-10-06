@@ -58,9 +58,16 @@ class TraceScore:
 
 
 # ----------------------------------------------------------------- normalising
+UNICODE_DASHES = re.compile("[\u2010\u2011\u2012\u2013\u2014\u2015\u2212]")
+UNICODE_SPACES = re.compile("[\u00a0\u2007\u202f]")
+
+
 def normalise_text(text: str) -> str:
-    text = (text or "").lower().replace(" ", " ").replace("’", "'")
-    return re.sub(r"(?<=\d),(?=\d)", "", text)  # ₹1,11,800 → ₹111800
+    # Models often emit look-alike characters: LR-0001 written with a non-breaking hyphen,
+    # narrow no-break spaces, curly quotes. Fold them so a correct id still matches.
+    text = (text or "").lower().replace("\u2019", "'").replace("\u2018", "'")
+    text = UNICODE_SPACES.sub(" ", UNICODE_DASHES.sub("-", text))
+    return re.sub(r"(?<=\d),(?=\d)", "", text)  # 1,11,800 -> 111800
 
 
 def contains(answer: str, expected: str) -> bool:

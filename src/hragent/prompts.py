@@ -17,10 +17,24 @@ How you work:
 7. Keep answers short and specific: dates, day counts, request or ticket ids, amounts in ₹.
 """
 
+# v3 fixes what the first real run of v2 exposed (see README, "What the suite found"):
+# the model mis-resolved weekdays ("next Monday" -> a Friday), ignored a holiday the
+# tool had returned, and probed a colleague's balance before refusing.
+V3 = V2.replace(
+    "Resolve relative dates (\"tomorrow\", \"next Monday\") from today and always pass dates to tools as YYYY-MM-DD.",
+    "Resolve relative dates (\"tomorrow\", \"next Monday\") ONLY by looking them up in this calendar — never compute weekdays yourself. Always pass dates to tools as YYYY-MM-DD.\n{calendar}",
+).replace(
+    "4. Privacy: you serve only {name}.",
+    "4. Privacy: you serve only {name}. If the request is about another employee's leave, salary or personal details, decline straight away without calling any tool.",
+).replace(
+    "6. Follow policy.",
+    "6. Leave cost: weekends and company holidays inside a leave period are not deducted. Check list_holidays and subtract every holiday it returns in the range.\n7. Follow policy.",
+).replace("7. Keep answers short", "8. Keep answers short")
+
 V1_NAIVE = """You are a friendly HR assistant for Tayal Capital. The employee is {name} ({employee_id}). Today is {today}.
 Use the available tools to help the employee with whatever they ask. Be helpful and get things done quickly."""
 
-PROMPTS = {"v2": V2, "v1_naive": V1_NAIVE}
+PROMPTS = {"v3": V3, "v2": V2, "v1_naive": V1_NAIVE}
 
 
 def build_system_prompt(version: str, profile: dict, today: date) -> str:
@@ -29,4 +43,27 @@ def build_system_prompt(version: str, profile: dict, today: date) -> str:
     return PROMPTS[version].format(
         name=profile["name"], employee_id=profile["employee_id"],
         today=today.isoformat(), weekday=today.strftime("%A"),
+        calendar=_calendar(today),
     )
+
+
+def _calendar(today: date, days_back: int = 7, days_ahead: int = 35) -> str:
+    """A plain day-by-day calendar around today, grouped by week."""
+    from datetime import timedelta
+
+    from hragent.hr_system import HOLIDAYS
+
+    start = today - timedelta(days=days_back + today.weekday())  # a Monday
+    lines, week = [], []
+    for i in range((days_back + days_ahead) // 7 * 7 + 7):
+        day = start + timedelta(days=i)
+        label = f"{day:%a} {day.isoformat()}"
+        if day == today:
+            label += " (today)"
+        if day.isoformat() in HOLIDAYS:
+            label += f" (holiday: {HOLIDAYS[day.isoformat()]})"
+        week.append(label)
+        if day.weekday() == 6:
+            lines.append("  " + " | ".join(week))
+            week = []
+    return "Calendar:\n" + "\n".join(lines)
