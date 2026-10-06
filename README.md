@@ -4,7 +4,7 @@
 
 Every run replays 25 scenarios against the agent and scores the **full trace**: which tools it called, with which arguments, what the HR system looks like afterwards, and what it finally told the employee. The result is an evidence-backed **GO / NO-GO release decision** that runs automatically in CI.
 
-![CI](https://github.com/tayalshivam/hr-agent-eval/actions/workflows/eval.yml/badge.svg)
+![CI](https://github.com/byshivam/hr-agent-eval/actions/workflows/eval.yml/badge.svg)
 ![Python](https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white)
 ![DeepEval](https://img.shields.io/badge/eval-DeepEval-6C47FF)
 ![Groq](https://img.shields.io/badge/LLM-Groq%20(free)-F55036)
@@ -89,7 +89,7 @@ Scenarios live in `evals/scenarios.jsonl`. Each one declares the expected tool c
 ## Quickstart (100% free)
 
 ```bash
-git clone https://github.com/tayalshivam/hr-agent-eval.git
+git clone https://github.com/byshivam/hr-agent-eval.git
 cd hr-agent-eval
 python -m venv .venv && source .venv/bin/activate      # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
@@ -230,4 +230,4 @@ reports/              Baseline and latest reports
 
 ---
 
-Built by [Shivam Tayal](https://github.com/tayalshivam) — AI Quality Engineer. Part of a series on evaluating GenAI systems for regulated industries, alongside [banking-rag-eval](https://github.com/tayalshivam/banking-rag-eval).
+Built by [Shivam Tayal](https://github.com/byshivam) — AI Quality Engineer. Part of a series on evaluating GenAI systems for regulated industries, alongside [banking-rag-eval](https://github.com/byshivam/banking-rag-eval).
