@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hragent"
+version = "0.1.0"
+description = "An HR AI agent and the trace-level evaluation suite that decides whether it can ship."
+requires-python = ">=3.10"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "."]
+markers = [
+    "llm: needs a real LLM (GROQ_API_KEY); skipped otherwise",
+]
+filterwarnings = ["ignore::DeprecationWarning"]
