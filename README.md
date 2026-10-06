@@ -149,6 +149,8 @@ The run also exposed a bug in the evaluation itself: the model writes request id
 
 **Fix → `v3`:** a day-by-day calendar (with holidays) in the system prompt so the model looks dates up instead of computing weekdays, an explicit "subtract holidays" rule, and "decline before calling any tool" for colleagues' data. Run the comparison yourself: `--prompt-version v2` vs `--prompt-version v3`.
 
+**Result:** `v3` passed 24 of 25 scenarios → **✅ GO**, and that run is now the approved baseline (`reports/baseline.json`). The one remaining failure is an honest trade-off the suite surfaced: because the calendar in the prompt now lists holidays, the agent answered "Is 20 October a holiday?" from the prompt instead of calling `list_holidays`. Correct today — but it would silently go stale if the holiday list changed in the HR system, so `tool_selection` keeps flagging it.
+
 ---
 
 ## 📊 Latest results
