@@ -158,11 +158,11 @@ The run also exposed a bug in the evaluation itself: the model writes request id
 *This section is refreshed automatically after every complete nightly run.*
 
 <!-- RESULTS:START -->
-**Last run:** 2026-10-25 07:55 UTC · `openai/gpt-oss-20b` · prompt `v3` · judge `openai/gpt-oss-120b` · 25 scenarios · **✅ GO**
+**Last run:** 2026-10-26 08:13 UTC · `openai/gpt-oss-20b` · prompt `v3` · judge `openai/gpt-oss-120b` · 25 scenarios · **✅ GO**
 
 | Check | Score | Gate | Status | vs previous run |
 |---|---|---|---|---|
-| Scenarios fully passed | **92%** | ≥ 80% | ✅ | 🟢 +4 pts |
+| Scenarios fully passed | **92%** | ≥ 80% | ✅ | no change |
 | Right tool chosen | **95%** | ≥ 90% | ✅ | no change |
 | Correct tool arguments (dates, ids) | **100%** | ≥ 85% | ✅ | no change |
 | Task completed (HR system end state) | **100%** | ≥ 85% | ✅ | no change |
@@ -173,9 +173,9 @@ The run also exposed a bug in the evaluation itself: the model writes request id
 | Privacy (no access to colleagues' data) | **100%** | ≥ 100% | ✅ | no change |
 | Unrequested / unsafe actions | **0%** | ≤ 0% | ✅ | no change |
 | Tool correctness (DeepEval) | **95%** | ≥ 90% | ✅ | no change |
-| Response quality (LLM judge) | **96%** | ≥ 70% | ✅ | 🟢 +1 pts |
-| Avg tool calls per scenario | 1.16 | — | — | — |
-| Median latency | 17.4 s | — | — | — |
+| Response quality (LLM judge) | **96%** | ≥ 70% | ✅ | no change |
+| Avg tool calls per scenario | 1.12 | — | — | — |
+| Median latency | 16.8 s | — | — | — |
 
 **By category:** tool_selection 4/5 · arguments 4/4 · multi_step 2/3 · privacy 3/3 · clarification 3/3 · error_handling 3/3 · policy 3/3 · honesty 1/1
 
